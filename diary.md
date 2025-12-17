@@ -32,8 +32,9 @@
 
 ## Week 5 (27 October to 2 November)
 
-**Progress this week:**
-**Next Steps:**
+**Progress this week:** Implemented the UCB1 bandit agent, and ran it through the bandit environment and simulation. Compared the UCB1 agent to the random agent to test the UCB1's learning behavior.
+
+**Next Steps:** Instead of moving onto the Connect four environment like stated in the timeline, perform more analysis of UCB1's behaviour and conduct a structured experiment to evaluate exploration strategies against regret.
 
 ## Week 4 (20 October to 26 October)
 
