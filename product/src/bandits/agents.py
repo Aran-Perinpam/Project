@@ -88,3 +88,52 @@ class UCB1Agent:
         # incremental mean update for the selected arm
         # updates the average without storing all past rewards
         self.values[arm] += (reward - self.values[arm]) / n
+
+
+# epsilon greedy agent
+# best estimated arm is used most of the time
+# epsilon probability cause it to explore other arms
+@dataclass
+class EpsilonGreedyAgent:
+
+    # number of available arms
+    n_arms: int
+    # epsilon probability
+    # rate that it explores
+    epsilon: float = 0.1
+    seed: int | None = None
+
+    def __post_init__(self) -> None:
+        # ensure there are at least 2 arms
+        if self.n_arms < 2:
+            raise ValueError("Need at least 2 arms.")
+        # ensure epsilon value is valid
+        if not (0.0 <= self.epsilon <= 1.0):
+            raise ValueError("epsilon must be in [0, 1]")
+
+        # how many times each arm has been selected
+        self.counts = [0] * self.n_arms
+        # estimates the mean reward for each arm
+        self.values = [0.0] * self.n_arms
+
+        # random number generator 
+        self._rng = random.Random(self.seed)
+
+    def select_arm(self) -> int:
+        # checks whether the agent should explore
+        if self._rng.random() < self.epsilon:
+            return self._rng.randrange(self.n_arms)
+
+        # otherwise chooses the best know arm
+        # if it is equal, a random choice is made between the possible arms
+        best_value = max(self.values)
+        best_arms = [i for i, v in enumerate(self.values) if v == best_value]
+        return self._rng.choice(best_arms)
+
+    def update(self, arm: int, reward: float) -> None:
+        # update pull count
+        self.counts[arm] += 1
+        n = self.counts[arm]
+
+        # updates the mean for the selected arm
+        self.values[arm] += (reward - self.values[arm]) / n
