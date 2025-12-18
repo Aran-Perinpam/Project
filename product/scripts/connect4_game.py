@@ -28,6 +28,24 @@ def main() -> None:
             if event.type == pygame.QUIT:
                 running = False
 
+            # on mouse click, place a disc in the hovered column
+            if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
+                mouse_x, mouse_y = event.pos
+
+                # only allows for clicks within the grid area
+                grid_left = margin
+                grid_top = margin
+                grid_right = margin + game.cols * cell_size
+                grid_bottom = margin + game.rows * cell_size
+
+                if grid_left <= mouse_x < grid_right and grid_top <= mouse_y < grid_bottom:
+                    col = (mouse_x - margin) // cell_size
+
+                    # does not recognise clicks in full columns
+                    if not game.is_column_full(col):
+                        game.drop_disc(col)
+                        game.switch_player()
+
         # clear block background
         screen.fill((20, 20, 20))
 

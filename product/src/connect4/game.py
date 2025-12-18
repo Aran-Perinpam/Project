@@ -38,6 +38,12 @@ class Connect4Game:
                 return r
 
         raise RuntimeError("column was unexpectedly full")
+    
+    def is_column_full(self, col: int) -> bool:
+        # if the top cell is not empty, the column is full
+        if col < 0 or col >= self.cols:
+            raise ValueError(f"invalid column: {col}")
+        return self.board[0][col] != 0
 
     def switch_player(self) -> None:
         # swaps the current player
