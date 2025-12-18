@@ -27,8 +27,9 @@
 
 ## Week 6 (3 November to 9 November)
 
-**Progress this week:**
-**Next Steps:**
+**Progress this week:** Added an epsilon greedy strategy to the bandit solver, and added an experiment for that strategy. Ran the first experiment collecting data that is saved within a .csv file. Began the process of plotting that data onto a graph.
+
+**Next Steps:** Fix the output of the graph (the graph plots something other than what is expected), then start work on the Connect four environment.
 
 ## Week 5 (27 October to 2 November)
 
