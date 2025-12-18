@@ -17,8 +17,9 @@
 
 ## Week 8 (17 November to 23 November)
 
-**Progress this week:**
-**Next Steps:**
+**Progress this week:** Fully implemented the connect four two player interaction, so now a connect four game can be fully played out by two human players. Added disc placement on click, as well as automatic win/draw detecion.
+
+**Next Steps:** Make improvements to the connect four game's interface. Begin work on the presentation slides.
 
 ## Week 7 (10 November to 16 November)
 
