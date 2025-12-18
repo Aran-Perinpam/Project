@@ -10,6 +10,8 @@ def main() -> None:
 
     game = Connect4Game()
 
+    winner = 0
+    draw = False
     cell_size = 90
     margin = 20
     width = margin * 2 + game.cols * cell_size
@@ -28,29 +30,48 @@ def main() -> None:
             if event.type == pygame.QUIT:
                 running = False
 
-            # on mouse click, place a disc in the hovered column
-            if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
-                mouse_x, mouse_y = event.pos
+            # press r to reset the board
+            if event.type == pygame.KEYDOWN and event.key == pygame.K_r:
+                game.reset()
+                winner = 0
+                draw = False
 
-                # only allows for clicks within the grid area
-                grid_left = margin
-                grid_top = margin
-                grid_right = margin + game.cols * cell_size
-                grid_bottom = margin + game.rows * cell_size
+            # checks that the game has not been won before letting the players make an action
+            if winner == 0 and not draw:
+                if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
+                    mouse_x, mouse_y = event.pos
 
-                if grid_left <= mouse_x < grid_right and grid_top <= mouse_y < grid_bottom:
-                    col = (mouse_x - margin) // cell_size
+                    grid_left = margin
+                    grid_top = margin
+                    grid_right = margin + game.cols * cell_size
+                    grid_bottom = margin + game.rows * cell_size
 
-                    # does not recognise clicks in full columns
-                    if not game.is_column_full(col):
-                        game.drop_disc(col)
-                        game.switch_player()
+                    if grid_left <= mouse_x < grid_right and grid_top <= mouse_y < grid_bottom:
+                        col = (mouse_x - margin) // cell_size
+
+                        # checks if a column is full before an action
+                        if not game.is_column_full(col):
+                            game.drop_disc(col)
+
+                            # check if the game has ended before switching player
+                            winner = game.check_winner()
+                            if winner == 0:
+                                draw = game.is_draw()
+                                if not draw:
+                                    game.switch_player()
 
         # clear block background
         screen.fill((20, 20, 20))
 
         # displays who's turn it is
-        text = font.render(f"player {game.current_player}'s turn", True, (240, 240, 240))
+        if winner != 0:
+            message = f"player {winner} wins! press R to restart"
+        elif draw:
+            message = "draw! press R to restart"
+        else:
+            message = f"player {game.current_player}'s turn"
+
+        text = font.render(message, True, (240, 240, 240))
         screen.blit(text, (margin, height - 50))
 
         # draws grid and disc spaces
