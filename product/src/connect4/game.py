@@ -48,3 +48,43 @@ class Connect4Game:
     def switch_player(self) -> None:
         # swaps the current player
         self.current_player = 2 if self.current_player == 1 else 1
+
+    def check_winner(self) -> int:
+        # returns 0 if there is no winner
+        # returns either 1 or 2 if the respective player has won
+        b = self.board
+
+        # checks horizontal wins
+        for r in range(self.rows):
+            for c in range(self.cols - 3):
+                p = b[r][c]
+                if p != 0 and p == b[r][c + 1] == b[r][c + 2] == b[r][c + 3]:
+                    return p
+
+        # checks vertical wins
+        for r in range(self.rows - 3):
+            for c in range(self.cols):
+                p = b[r][c]
+                if p != 0 and p == b[r + 1][c] == b[r + 2][c] == b[r + 3][c]:
+                    return p
+
+        # checks wins pointing diagonally down to the right
+        for r in range(self.rows - 3):
+            for c in range(self.cols - 3):
+                p = b[r][c]
+                if p != 0 and p == b[r + 1][c + 1] == b[r + 2][c + 2] == b[r + 3][c + 3]:
+                    return p
+
+        # checks wins pointing diagonally up to the right
+        for r in range(3, self.rows):
+            for c in range(self.cols - 3):
+                p = b[r][c]
+                if p != 0 and p == b[r - 1][c + 1] == b[r - 2][c + 2] == b[r - 3][c + 3]:
+                    return p
+
+        return 0
+
+    def is_draw(self) -> bool:
+        # when the board is full and there is no winner, returns a draw
+        return self.check_winner() == 0 and len(self.legal_moves()) == 0
+
