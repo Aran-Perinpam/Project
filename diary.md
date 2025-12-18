@@ -22,8 +22,9 @@
 
 ## Week 7 (10 November to 16 November)
 
-**Progress this week:**
-**Next Steps:**
+**Progress this week:** Began implementing the Connect four environment, starting with the basic game logic and disc dropping. Started work of the pygame window of the game.
+
+**Next Steps:** Add player interaction to the pygame window, specificallly clicking which column the player wants to drop their piece.
 
 ## Week 6 (3 November to 9 November)
 
