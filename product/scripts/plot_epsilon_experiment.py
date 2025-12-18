@@ -26,21 +26,25 @@ def main() -> None:
             for key in regrets:
                 regrets[key].append(float(row[key]))
 
-    # create graph plot
-    plt.figure(figsize=(8, 5))
 
-    for key, values in regrets.items():
-        plt.plot(steps, values, label=key)
+        # converts cumulative regret to average regret per step
+        # instead of plotting cumulative regret against time steps
+        # to achieve the expected curve on the graph
+        scale = 1000.0
 
-    plt.xlabel("Time step")
-    plt.ylabel("Cumulative regret")
-    plt.title("Epsilon-Greedy: Cumulative Regret Over Time")
-    plt.legend()
-    plt.grid(True)
+        plt.figure(figsize=(8, 5))
 
-    # save plot to a file inside the outputs folder
-    plt.savefig(plot_path)
-    plt.close()
+        for key, cumulative_values in regrets.items():
+            avg_values = [(cumulative_values[i] / steps[i]) * scale for i in range(len(steps))]
+            plt.plot(steps, avg_values, label=key)
+
+        plt.xlabel("Time step")
+        plt.ylabel("Regret (average per step × 1000)")
+        plt.title("Epsilon-Greedy: Regret Over Time")
+        plt.legend()
+        plt.grid(True)
+        plt.savefig(plot_path)
+        plt.close()
 
     print("plot saved to:", plot_path)
 
