@@ -2,8 +2,9 @@
 
 ## Week 11 (8 December to 14 December)
 
-**Progress this week:**
-**Next Steps:**
+**Progress this week:** Focused on completing the Interim report. Reflected on project work carried out so far
+
+**Next Steps:** Think ahead to term 2 of this project.
 
 ## Week 10 (1 December to 7 December)
 
