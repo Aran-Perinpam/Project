@@ -7,8 +7,9 @@
 
 ## Week 10 (1 December to 7 December)
 
-**Progress this week:**
-**Next Steps:**
+**Progress this week:** Finished and submitted presetation slides. Gave presentation to a number of peers, then updated the README to contain instructions for running different parts of the project
+
+**Next Steps:** Work on the documents involved in the Interim report,
 
 ## Week 9 (24 November to 30 November)
 
