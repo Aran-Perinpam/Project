@@ -63,6 +63,19 @@ def main() -> None:
         # clear block background
         screen.fill((20, 20, 20))
 
+        # sees whether the mouse is hovering over one of the columns
+        mouse_x, mouse_y = pygame.mouse.get_pos()
+
+        grid_left = margin
+        grid_top = margin
+        grid_right = margin + game.cols * cell_size
+        grid_bottom = margin + game.rows * cell_size
+
+        hover_col = None
+        if grid_left <= mouse_x < grid_right and grid_top <= mouse_y < grid_bottom:
+            hover_col = (mouse_x - margin) // cell_size
+
+
         # displays who's turn it is
         if winner != 0:
             message = f"player {winner} wins! press R to restart"
@@ -93,6 +106,27 @@ def main() -> None:
                     colour = (25, 25, 25)
 
                 pygame.draw.circle(screen, colour, center, cell_size // 2 - 8)
+
+        # highlights the column that is being hovered
+        if winner == 0 and not draw and hover_col is not None and not game.is_column_full(hover_col):
+            x = margin + hover_col * cell_size
+            y = margin
+
+            overlay = pygame.Surface((cell_size, game.rows * cell_size), pygame.SRCALPHA)
+            overlay.fill((255, 255, 255, 80))
+            screen.blit(overlay, (x, y))
+
+        # shows where the disc will fall if that column is choosen
+        if winner == 0 and not draw and hover_col is not None and not game.is_column_full(hover_col):
+            x = margin + hover_col * cell_size
+            center = (x + cell_size // 2, margin + cell_size // 2)
+
+            if game.current_player == 1:
+                preview_colour = (220, 60, 60)
+            else:
+                preview_colour = (240, 220, 60)
+
+            pygame.draw.circle(screen, preview_colour, center, cell_size // 2 - 10)
 
         pygame.display.flip()
         clock.tick(60)
