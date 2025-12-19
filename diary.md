@@ -12,8 +12,9 @@
 
 ## Week 9 (24 November to 30 November)
 
-**Progress this week:**
-**Next Steps:**
+**Progress this week:** Added quality of life change to the connect four environment by highlighting columns that the user hovers over, displaying where their disc will drop if the highlighted column is chosen. Contiuned to work on the presetation slides.
+
+**Next Steps:** Finalise the presetation script and slides. Update the README.md file with instructions for running the experiments and game environment.
 
 ## Week 8 (17 November to 23 November)
 
